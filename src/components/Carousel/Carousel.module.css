@@ -1,0 +1,17 @@
+.customSlide {
+  display: flex;
+  justify-content: center;
+}
+
+.control {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.carousel {
+  padding: 50px 0px;
+  width: 100%;
+}
