@@ -17,9 +17,11 @@
   background-color: white;
 }
 
+.title::after {
+  transform: translateY(-5px);
+}
+
 .header {
-  display: flex;
-  align-items: center;
   background-color: var(--main-color);
   width: 100%;
 }
