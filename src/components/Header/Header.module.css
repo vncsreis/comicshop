@@ -1,15 +1,25 @@
+@import '../../App.css';
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .title {
-  font-size: 2rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
   color: white;
+  padding: 20px;
 }
 
-.accent {
-  color: red;
+.title::before,
+.title::after {
+  display: block;
+  content: '';
+  height: 3px;
+  width: 100%;
+  background-color: white;
 }
 
 .header {
   display: flex;
   align-items: center;
-  background-color: black;
+  background-color: var(--main-color);
   width: 100%;
 }
