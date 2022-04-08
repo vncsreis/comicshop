@@ -16,6 +16,7 @@ export default function ComicCarousel({ comics }: ComicCarouselProps) {
           id={comic.id}
           imageUrl={comic.imageUrl}
           price={comic.price}
+          rare={comic.rare}
         />
       ))}
     </Carousel>

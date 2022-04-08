@@ -22,17 +22,16 @@ function App() {
 
       const { results } = response.data.data;
 
-      const fetchedComicArray = results.map(
-        (res: any) =>
-          new Comic(
-            res.id,
-            res.title,
-            res.prices[0].price ?? 9.99,
-            `${res.thumbnail.path}.${res.thumbnail.extension}` ?? '',
-          ),
-      );
-
-      console.log(results);
+      const fetchedComicArray = results.map((res: any) => {
+        const rand = Math.floor(Math.random() * 10);
+        return new Comic(
+          res.id,
+          res.title,
+          res.prices[0].price !== 0 ? res.prices[0].price : 9.99,
+          `${res.thumbnail.path}.${res.thumbnail.extension}` ?? '',
+          rand > 8,
+        );
+      });
 
       setComics(fetchedComicArray);
     } catch (_) {

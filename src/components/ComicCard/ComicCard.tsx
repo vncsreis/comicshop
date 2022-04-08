@@ -5,6 +5,7 @@ interface ComicCardProps {
   title: string;
   price: number;
   imageUrl: string;
+  rare: boolean;
 }
 
 export default function ComicCard({
@@ -12,11 +13,30 @@ export default function ComicCard({
   title,
   imageUrl,
   price,
+  rare,
 }: ComicCardProps) {
   return (
     <Flex flexDir="column" alignItems="center">
-      <Box backgroundColor="gray.400">
-        <Image maxHeight="400px" src={imageUrl} alt={`${id}'s cover`} />
+      <Box backgroundColor="gray.400" position="relative">
+        {rare && (
+          <Box
+            zIndex="1"
+            position="absolute"
+            top="0"
+            right="0"
+            backgroundColor="red"
+            color="white"
+            padding="1"
+          >
+            <Text fontSize="3xl">Rare!</Text>
+          </Box>
+        )}
+        <Image
+          border={rare ? 'solid 5px red' : ''}
+          maxHeight="400px"
+          src={imageUrl}
+          alt={`${id}'s cover`}
+        />
       </Box>
       <Flex flexDir="column" alignItems="center" mt="2">
         <Heading fontSize="xl" textAlign="center">
