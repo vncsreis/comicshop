@@ -1,6 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import './App.css';
 import ComicCarousel from './components/ComicCarousel/ComicCarousel';
 import Header from './components/Header';
@@ -47,9 +48,13 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <Outlet />
       <Flex flexDir="column" alignItems="center" mt="20">
         {loading && <div>Loading...</div>}
-        {!loading && comics && <ComicCarousel comics={comics} />}
+        {!loading && comics.length === 0 && (
+          <div>Oops! Something went wrong</div>
+        )}
+        {!loading && comics.length > 0 && <ComicCarousel comics={comics} />}
       </Flex>
     </div>
   );
