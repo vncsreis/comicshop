@@ -1,4 +1,4 @@
-import Comic from '../../models/Comic/Comic';
+import Comic from '../../models/Comic';
 import Carousel from '../Carousel';
 import ComicCard from '../ComicCard';
 
