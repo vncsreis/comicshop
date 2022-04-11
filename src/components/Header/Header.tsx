@@ -5,7 +5,11 @@ import styles from './Header.module.css';
 
 export default function Header() {
   return (
-    <Flex alignItems="center" className={styles.header}>
+    <Flex
+      alignItems="center"
+      className={styles.header}
+      backgroundColor="red.500"
+    >
       <Flex width="20%">
         <h1 className={styles.title}>COMICSHOP</h1>
       </Flex>
