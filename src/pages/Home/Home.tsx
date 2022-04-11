@@ -16,7 +16,7 @@ export default function Home() {
         import.meta.env.VITE_APIKEY
       }`;
 
-      const response = await axios.get(url);
+      const response = await axios.get(url, { timeout: 5000 });
 
       const { results } = response.data.data;
 
@@ -40,7 +40,7 @@ export default function Home() {
 
   useEffect(() => {
     getComics();
-  }, [comics]);
+  }, []);
   return (
     <Flex flexDir="column" alignItems="center" mt="20">
       {loading && <div>Loading...</div>}
