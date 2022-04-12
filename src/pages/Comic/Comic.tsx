@@ -1,13 +1,16 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ComicDisplay from '../../components/ComicDisplay';
 import ComicModel from '../../models/Comic';
+import { add } from '../../slices/bagSlice';
 
 export default function Comic() {
   const { id } = useParams();
   const [comic, setComic] = useState<ComicModel | null>(null);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   async function getComicById(idToGet: string) {
     setLoading(true);
@@ -40,7 +43,9 @@ export default function Comic() {
 
   return (
     <>
-      {comic && <ComicDisplay comic={comic} />}
+      {comic && (
+        <ComicDisplay comic={comic} onAdd={() => dispatch(add(comic))} />
+      )}
       {loading && <div>loading</div>}
       {!comic && !loading && <div>Ooops!</div>}
     </>

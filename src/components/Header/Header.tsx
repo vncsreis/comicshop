@@ -1,10 +1,14 @@
 import { SearchIcon } from '@chakra-ui/icons';
 import { Flex, IconButton, Input, Text } from '@chakra-ui/react';
 import { AiOutlineShopping } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { selectBagAmount } from '../../slices/bagSlice';
 import styles from './Header.module.css';
 
 export default function Header() {
+  const amount = useSelector(selectBagAmount);
+
   return (
     <Flex
       alignItems="center"
@@ -53,7 +57,7 @@ export default function Header() {
               fontWeight="bold"
               display="flex"
             >
-              12
+              {amount}
             </Text>
           </Flex>
         </Flex>
