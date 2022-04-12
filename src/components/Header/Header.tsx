@@ -1,6 +1,7 @@
 import { SearchIcon } from '@chakra-ui/icons';
 import { Flex, IconButton, Input, Text } from '@chakra-ui/react';
-import { AiOutlineShopping, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineShopping } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -10,9 +11,11 @@ export default function Header() {
       className={styles.header}
       backgroundColor="red.500"
     >
-      <Flex width="20%">
-        <h1 className={styles.title}>COMICSHOP</h1>
-      </Flex>
+      <Link to="/">
+        <Flex width="20%">
+          <h1 className={styles.title}>COMICSHOP</h1>
+        </Flex>
+      </Link>
       <Flex ml="auto" flex="1" justifyContent="center">
         <Input
           fontSize="xl"
@@ -54,12 +57,12 @@ export default function Header() {
             </Text>
           </Flex>
         </Flex>
-        <Flex alignItems="center" cursor="pointer">
+        {/* <Flex alignItems="center" cursor="pointer">
           <AiOutlineUser size="3rem" color="white" />
           <Text fontSize="xl" color="white" transform="translateY(5px)">
             User Name
           </Text>
-        </Flex>
+        </Flex> */}
       </Flex>
     </Flex>
   );
