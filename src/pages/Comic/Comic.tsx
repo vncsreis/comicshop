@@ -21,8 +21,6 @@ export default function Comic() {
 
       const comicInfo = (await axios.get(url)).data.data.results[0];
 
-      console.log(comicInfo);
-
       const comicFetched = new ComicModel(
         comicInfo.id,
         comicInfo.title,
