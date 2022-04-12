@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+
 import { Flex } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -10,30 +12,38 @@ export default function Home() {
 
   async function getComics() {
     setLoading(true);
-    try {
-      const offset = Math.floor(Math.random() * 5000);
-      const url = `https://gateway.marvel.com:443/v1/public/comics?limit=15&offset=${offset}&apikey=${
-        import.meta.env.VITE_APIKEY
-      }`;
+    let fails = 0;
+    let success = false;
 
-      const response = await axios.get(url, { timeout: 5000 });
+    while (fails <= 5 || success === false) {
+      try {
+        const offset = Math.floor(Math.random() * 5000);
+        const url = `https://gateway.marvel.com:443/v1/public/comics?limit=15&offset=${offset}&apikey=${
+          import.meta.env.VITE_APIKEY
+        }`;
 
-      const { results } = response.data.data;
+        const response = await axios.get(url);
 
-      const fetchedComicArray = results.map((res: any) => {
-        const rand = Math.floor(Math.random() * 10);
-        return new Comic(
-          res.id,
-          res.title,
-          res.prices[0].price !== 0 ? res.prices[0].price : 9.99,
-          `${res.thumbnail.path}.${res.thumbnail.extension}` ?? '',
-          rand > 8,
-        );
-      });
+        const { results } = response.data.data;
 
-      setComics(fetchedComicArray);
-    } catch (_) {
-      console.log('error');
+        const fetchedComicArray = results.map((res: any) => {
+          const rand = Math.floor(Math.random() * 10);
+          return new Comic(
+            res.id,
+            res.title,
+            res.prices[0].price !== 0 ? res.prices[0].price : 9.99,
+            `${res.thumbnail.path}.${res.thumbnail.extension}` ?? '',
+            rand > 8,
+          );
+        });
+
+        setComics(fetchedComicArray);
+
+        success = true;
+      } catch (e) {
+        fails += 1;
+        console.log(e);
+      }
     }
     setLoading(false);
   }
