@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 interface ComicCardProps {
@@ -28,9 +29,9 @@ export default function ComicCard({
               right="0"
               backgroundColor="red"
               color="white"
-              padding="1"
+              padding="4"
             >
-              <Text fontSize="3xl">Rare!</Text>
+              <FaStar size="30" />
             </Box>
           )}
           <Image

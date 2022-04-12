@@ -1,4 +1,4 @@
-import { Flex, Heading, Image, Divider } from '@chakra-ui/react';
+import { Divider, Flex, Heading, Image } from '@chakra-ui/react';
 import { AiOutlineShopping } from 'react-icons/ai';
 import ComicModel from '../../models/Comic';
 import Button from '../Button';
@@ -11,7 +11,7 @@ export default function ComicDisplay({ comic }: ComicProps) {
   return (
     <Flex height="100%" justifyContent="center" alignItems="center">
       <Flex
-        shadow="dark-lg"
+        shadow="2xl"
         height="90%"
         width="80%"
         alignItems="center"
