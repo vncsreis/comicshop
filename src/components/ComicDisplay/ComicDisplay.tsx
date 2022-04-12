@@ -5,9 +5,10 @@ import Button from '../Button';
 
 interface ComicProps {
   comic: ComicModel;
+  onAdd: () => void;
 }
 
-export default function ComicDisplay({ comic }: ComicProps) {
+export default function ComicDisplay({ comic, onAdd }: ComicProps) {
   return (
     <Flex height="100%" justifyContent="center" alignItems="center">
       <Flex
@@ -34,7 +35,11 @@ export default function ComicDisplay({ comic }: ComicProps) {
             })}
           </Heading>
 
-          <Button text="Add to Bag" icon={<AiOutlineShopping size="30" />} />
+          <Button
+            text="Add to Bag"
+            icon={<AiOutlineShopping size="30" />}
+            onClick={onAdd}
+          />
         </Flex>
       </Flex>
     </Flex>
