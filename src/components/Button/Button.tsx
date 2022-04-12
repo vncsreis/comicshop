@@ -7,9 +7,22 @@ interface ButtonProps {
 
 export default function Button({ text, icon = null }: ButtonProps) {
   return (
-    <ChakraButton variant="solid" colorScheme="red">
+    <ChakraButton
+      variant="solid"
+      colorScheme="red"
+      display="flex"
+      alignItems="center"
+      padding="6"
+    >
       <Box pr="4">{icon}</Box>
-      {text.toLocaleUpperCase()}
+      <Box
+        h="100%"
+        display="flex"
+        alignItems="center"
+        transform="translateY(5px)"
+      >
+        {text.toLocaleUpperCase()}
+      </Box>
     </ChakraButton>
   );
 }
