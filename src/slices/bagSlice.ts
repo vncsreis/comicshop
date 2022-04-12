@@ -17,7 +17,10 @@ export const bagSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action) => {
-      if (action.payload instanceof Comic) {
+      if (
+        action.payload instanceof Comic &&
+        !state.comics.some((comic) => comic.id === action.payload.id)
+      ) {
         state.comics.push(action.payload);
       }
     },
