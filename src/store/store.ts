@@ -2,10 +2,12 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import bagReducer from '../slices/bagSlice';
+import rareReducer from '../slices/rareSlice';
 
 const store = configureStore({
   reducer: {
     bag: bagReducer,
+    rare: rareReducer,
   },
 });
 
