@@ -3,12 +3,16 @@
 import { Flex } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ComicCarousel from '../../components/ComicCarousel/ComicCarousel';
 import Comic from '../../models/Comic';
+import { add, selectRare } from '../../slices/rareSlice';
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [comics, setComics] = useState<Comic[]>([]);
+  const dispatch = useDispatch();
+  const rare = useSelector(selectRare);
 
   async function getComics() {
     setLoading(true);
@@ -27,13 +31,26 @@ export default function Home() {
         const { results } = response.data.data;
 
         const fetchedComicArray = results.map((res: any) => {
+          let comicIsRare = false;
           const rand = Math.floor(Math.random() * 10);
+
+          if (rand > 8) {
+            dispatch(add(res.id));
+            console.log(`added ${res.id}`);
+            console.log(typeof res.id);
+            comicIsRare = true;
+          }
+
+          if (rare.indexOf(res.id) !== -1) {
+            comicIsRare = true;
+          }
+
           return new Comic(
             res.id,
             res.title,
             res.prices[0].price !== 0 ? res.prices[0].price : 9.99,
             `${res.thumbnail.path}.${res.thumbnail.extension}` ?? '',
-            rand > 8,
+            comicIsRare,
           );
         });
 
