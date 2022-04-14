@@ -15,7 +15,7 @@ export default function Home() {
     let fails = 0;
     let success = false;
 
-    while (fails <= 5 || success === false) {
+    do {
       try {
         const offset = Math.floor(Math.random() * 5000);
         const url = `https://gateway.marvel.com:443/v1/public/comics?limit=15&offset=${offset}&apikey=${
@@ -37,20 +37,21 @@ export default function Home() {
           );
         });
 
-        setComics(fetchedComicArray);
-
         success = true;
+
+        setComics(fetchedComicArray);
       } catch (e) {
         fails += 1;
         console.log(e);
       }
-    }
+    } while (fails <= 5 && success !== true);
     setLoading(false);
   }
 
   useEffect(() => {
     getComics();
   }, []);
+
   return (
     <Flex flexDir="column" alignItems="center" mt="20">
       {loading && <div>Loading...</div>}
