@@ -47,7 +47,10 @@ export default function Comic() {
   return (
     <>
       {comic && (
-        <ComicDisplay comic={comic} onAdd={() => dispatch(add(comic))} />
+        <ComicDisplay
+          comic={comic}
+          onAdd={() => dispatch(add({ comic, amount: 1 }))}
+        />
       )}
       {loading && <div>loading</div>}
       {!comic && !loading && <div>Ooops!</div>}

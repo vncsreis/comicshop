@@ -7,7 +7,7 @@ import { selectBag } from '../../slices/bagSlice';
 import convertCurrency from '../../utilities/convertCurrency';
 
 export default function Bag() {
-  const [comics] = useState(useSelector(selectBag));
+  const [items] = useState(useSelector(selectBag));
 
   return (
     <Flex flexDir="column" py="20">
@@ -16,8 +16,8 @@ export default function Bag() {
       </Heading>
 
       <BagComicList>
-        {comics.map((comic) => (
-          <BagComic comic={comic} />
+        {items.map((item) => (
+          <BagComic comic={item.comic} />
         ))}
       </BagComicList>
 
