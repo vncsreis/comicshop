@@ -16,13 +16,8 @@ export default function Button({ text, icon = null, onClick }: ButtonProps) {
       padding="6"
       onClick={onClick}
     >
-      <Box pr="4">{icon}</Box>
-      <Box
-        h="100%"
-        display="flex"
-        alignItems="center"
-        transform="translateY(5px)"
-      >
+      {icon && <Box pr="4">{icon}</Box>}
+      <Box h="100%" display="flex" alignItems="center">
         {text.toLocaleUpperCase()}
       </Box>
     </ChakraButton>
