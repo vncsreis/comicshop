@@ -70,7 +70,7 @@ export default function Home() {
   }, []);
 
   return (
-    <Flex flexDir="column" alignItems="center" mt="20">
+    <Flex flexDir="column" alignItems="center" mt="20" pb="40">
       {loading && <div>Loading...</div>}
       {!loading && comics.length === 0 && <div>Oops! Something went wrong</div>}
       {!loading && comics.length > 0 && <ComicCarousel comics={comics} />}
