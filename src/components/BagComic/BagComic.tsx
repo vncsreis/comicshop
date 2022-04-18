@@ -1,14 +1,26 @@
 import { Divider, Flex, Heading, Image, Input, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Comic from '../../models/Comic';
 import Button from '../Button';
+import convertCurrency from '../../utilities/convertCurrency';
 
 interface BagComicProps {
   comic: Comic;
 }
 
 export default function BagComic({ comic }: BagComicProps) {
-  const [amount] = useState(1);
+  const [amount, setAmount] = useState(1);
+  const [input, setInput] = useState(amount);
+
+  function handleAmountChange(amnt: number) {
+    let newAmount = amnt;
+
+    if (newAmount <= 0) {
+      newAmount = 1;
+      setInput(1);
+    }
+    setAmount(newAmount);
+  }
 
   return (
     <Flex
@@ -25,26 +37,24 @@ export default function BagComic({ comic }: BagComicProps) {
       </Flex>
 
       <Flex ml="auto" alignItems="center" gap="10">
-        <Input type="number" value={amount} />
+        <Input
+          type="number"
+          value={input}
+          onBlur={() => {
+            handleAmountChange(input);
+          }}
+          onChange={(e) => setInput(parseInt(e.target.value, 10))}
+        />
         <Button text="Remove" onClick={() => {}} />
       </Flex>
 
       <Flex flexDir="column" ml="auto" width="20%" alignItems="flex-end">
         <Text fontStyle="italic">
-          {comic.price.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD',
-          })}{' '}
-          x {amount}
+          {convertCurrency(comic.price)} x {amount}
         </Text>
 
         <Divider />
-        <Heading>
-          {(comic.price * amount).toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD',
-          })}
-        </Heading>
+        <Heading>{convertCurrency(comic.price * amount)}</Heading>
       </Flex>
     </Flex>
   );
