@@ -1,5 +1,6 @@
 import { Divider, Flex, Heading, Image, Input, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Comic from '../../models/Comic';
 import Button from '../Button';
 import convertCurrency from '../../utilities/convertCurrency';
@@ -11,6 +12,7 @@ interface BagComicProps {
 export default function BagComic({ comic }: BagComicProps) {
   const [amount, setAmount] = useState(1);
   const [input, setInput] = useState(amount);
+  const dispatch = useDispatch();
 
   function handleAmountChange(amnt: number) {
     let newAmount = amnt;
