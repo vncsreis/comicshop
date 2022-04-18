@@ -39,35 +39,37 @@ export default function Header() {
           backgroundColor="white"
         />
       </Flex>
-      <Flex width="20%" justifyContent="space-evenly">
-        <Flex alignItems="center" cursor="pointer">
-          <AiOutlineShopping size="3rem" color="white" />
-          <Flex
-            flexDir="column"
-            width="30px"
-            height="30px"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Text
-              transform="translateY(5px)"
-              lineHeight="xl"
-              fontSize="2xl"
-              color="white"
-              fontWeight="bold"
-              display="flex"
+      <Link to="/bag">
+        <Flex width="20%" justifyContent="space-evenly">
+          <Flex alignItems="center" cursor="pointer">
+            <AiOutlineShopping size="3rem" color="white" />
+            <Flex
+              flexDir="column"
+              width="30px"
+              height="30px"
+              alignItems="center"
+              justifyContent="center"
             >
-              {amount}
-            </Text>
+              <Text
+                transform="translateY(5px)"
+                lineHeight="xl"
+                fontSize="2xl"
+                color="white"
+                fontWeight="bold"
+                display="flex"
+              >
+                {amount}
+              </Text>
+            </Flex>
           </Flex>
-        </Flex>
-        {/* <Flex alignItems="center" cursor="pointer">
+          {/* <Flex alignItems="center" cursor="pointer">
           <AiOutlineUser size="3rem" color="white" />
           <Text fontSize="xl" color="white" transform="translateY(5px)">
             User Name
           </Text>
         </Flex> */}
-      </Flex>
+        </Flex>
+      </Link>
     </Flex>
   );
 }
