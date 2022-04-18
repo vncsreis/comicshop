@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import BagComic from '../../components/BagComic';
+import BagComicList from '../../components/BagComicList';
 import { selectBag } from '../../slices/bagSlice';
 
 export default function Bag() {
-  const [comics, setComics] = useState(useSelector(selectBag));
+  const [comics] = useState(useSelector(selectBag));
 
   return (
     <div>
       <div>Bag</div>
 
-      <ul>
+      <BagComicList>
         {comics.map((comic) => (
-          <div>{comic.title}</div>
+          <BagComic comic={comic} />
         ))}
-      </ul>
+      </BagComicList>
     </div>
   );
 }
