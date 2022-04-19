@@ -2,7 +2,7 @@
 
 import { Flex } from '@chakra-ui/react';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ComicCarousel from '../../components/ComicCarousel/ComicCarousel';
 import Comic from '../../models/Comic';
@@ -13,11 +13,14 @@ export default function Home() {
   const [comics, setComics] = useState<Comic[]>([]);
   const dispatch = useDispatch();
   const rare = useSelector(selectRare);
+  const isMounted = useRef(true);
 
   async function getComics() {
     setLoading(true);
     let fails = 0;
     let success = false;
+
+    const controller = new AbortController();
 
     do {
       try {
@@ -26,7 +29,7 @@ export default function Home() {
           import.meta.env.VITE_APIKEY
         }`;
 
-        const response = await axios.get(url);
+        const response = await axios.get(url, { signal: controller.signal });
 
         const { results } = response.data.data;
 
@@ -56,17 +59,26 @@ export default function Home() {
 
         success = true;
 
-        setComics(fetchedComicArray);
+        return fetchedComicArray;
       } catch (e) {
         fails += 1;
         console.log(e);
       }
     } while (fails <= 5 && success !== true);
     setLoading(false);
+
+    return () => controller.abort();
   }
 
   useEffect(() => {
-    getComics();
+    (async () => {
+      const fetchedComicArray = await getComics();
+      if (isMounted.current) setComics(fetchedComicArray);
+    })();
+
+    return () => {
+      isMounted.current = false;
+    };
   }, []);
 
   return (

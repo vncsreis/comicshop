@@ -23,7 +23,7 @@ export default function Bag() {
 
       <BagComicList>
         {items.map((item) => (
-          <BagComic item={item} />
+          <BagComic key={item.comic.id} item={item} />
         ))}
       </BagComicList>
 
