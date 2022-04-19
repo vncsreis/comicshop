@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ComicCarousel from '../../components/ComicCarousel/ComicCarousel';
 import Comic from '../../models/Comic';
-import { add, selectRare } from '../../slices/rareSlice';
+import { add as addRare, selectRare } from '../../slices/rareSlice';
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -35,9 +35,7 @@ export default function Home() {
           const rand = Math.floor(Math.random() * 10);
 
           if (rand > 8) {
-            dispatch(add(res.id));
-            console.log(`added ${res.id}`);
-            console.log(typeof res.id);
+            dispatch(addRare(res.id));
             comicIsRare = true;
           }
 
@@ -45,13 +43,15 @@ export default function Home() {
             comicIsRare = true;
           }
 
-          return new Comic(
-            res.id,
-            res.title,
-            res.prices[0].price !== 0 ? res.prices[0].price : 9.99,
-            `${res.thumbnail.path}.${res.thumbnail.extension}` ?? '',
-            comicIsRare,
-          );
+          const newComic: Comic = {
+            id: res.id,
+            title: res.title,
+            price: res.prices[0].price !== 0 ? res.prices[0].price : 9.99,
+            imageUrl: `${res.thumbnail.path}.${res.thumbnail.extension}` ?? '',
+            rare: comicIsRare,
+          };
+
+          return newComic;
         });
 
         success = true;

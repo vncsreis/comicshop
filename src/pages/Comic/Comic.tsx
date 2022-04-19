@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ComicDisplay from '../../components/ComicDisplay';
 import ComicModel from '../../models/Comic';
-import { add } from '../../slices/bagSlice';
+import { add as addToBag } from '../../slices/bagSlice';
 import { selectRare } from '../../slices/rareSlice';
 
 export default function Comic() {
@@ -25,13 +25,14 @@ export default function Comic() {
 
       const comicIsRare = rare.indexOf(parseInt(comicInfo.id, 10)) !== -1;
 
-      const comicFetched = new ComicModel(
-        comicInfo.id,
-        comicInfo.title,
-        comicInfo.prices[0].price !== 0 ? comicInfo.prices[0].price : 9.99,
-        `${comicInfo.thumbnail.path}.${comicInfo.thumbnail.extension}`,
-        comicIsRare,
-      );
+      const comicFetched: ComicModel = {
+        id: comicInfo.id,
+        title: comicInfo.title,
+        price:
+          comicInfo.prices[0].price !== 0 ? comicInfo.prices[0].price : 9.99,
+        imageUrl: `${comicInfo.thumbnail.path}.${comicInfo.thumbnail.extension}`,
+        rare: comicIsRare,
+      };
 
       setComic(comicFetched);
     } catch (e) {
@@ -49,7 +50,7 @@ export default function Comic() {
       {comic && (
         <ComicDisplay
           comic={comic}
-          onAdd={() => dispatch(add({ comic, amount: 1 }))}
+          onAdd={() => dispatch(addToBag({ comic, amount: 1 }))}
         />
       )}
       {loading && <div>loading</div>}

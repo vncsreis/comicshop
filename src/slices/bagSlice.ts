@@ -1,20 +1,20 @@
 /* eslint-disable import/no-cycle */
 
 import { createSlice } from '@reduxjs/toolkit';
-import Comic from '../models/Comic';
+import Comic, { isComic } from '../models/Comic';
 import { RootState } from '../store/store';
 
 function isBagItem(item: any): item is BagItem {
   return (
     item &&
     item.comic &&
-    item.comic instanceof Comic &&
+    isComic(item.comic) &&
     item.amount &&
     typeof item.amount === 'number'
   );
 }
 
-interface BagItem {
+export interface BagItem {
   comic: Comic;
   amount: number;
 }
@@ -44,23 +44,28 @@ export const bagSlice = createSlice({
         isBagItem(action.payload) &&
         state.items.some((item) => item.comic.id === action.payload.comic.id)
       ) {
+        let newIndex = -1;
         state.items.forEach((item, index) => {
           if (item.comic.id === action.payload.comic.id) {
-            // eslint-disable-next-line no-param-reassign
-            state.items[index].amount = action.payload.amount;
+            newIndex = index;
           }
         });
+
+        if (newIndex >= 0) {
+          // eslint-disable-next-line no-param-reassign
+          state.items[newIndex] = action.payload;
+        }
       }
     },
     remove: (state, action) => {
-      if (action.payload instanceof Comic) {
+      if (isComic(action.payload)) {
         state.items.filter((item) => item.comic.id !== action.payload.id);
       }
     },
   },
 });
 
-export const { add, remove } = bagSlice.actions;
+export const { add, remove, update } = bagSlice.actions;
 
 export const selectBag = (state: RootState) => state.bag.items;
 

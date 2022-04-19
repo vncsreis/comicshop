@@ -1,13 +1,19 @@
 import { Divider, Flex, Heading, Text } from '@chakra-ui/react';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import BagComic from '../../components/BagComic';
 import BagComicList from '../../components/BagComicList';
-import { selectBag } from '../../slices/bagSlice';
+import { BagItem, selectBag } from '../../slices/bagSlice';
 import convertCurrency from '../../utilities/convertCurrency';
 
 export default function Bag() {
-  const [items] = useState(useSelector(selectBag));
+  const items = useSelector(selectBag);
+
+  function getTotalValue(array: BagItem[]) {
+    return array.reduce(
+      (prev, next) => prev + next.comic.price * next.amount,
+      0,
+    );
+  }
 
   return (
     <Flex flexDir="column" py="20">
@@ -17,7 +23,7 @@ export default function Bag() {
 
       <BagComicList>
         {items.map((item) => (
-          <BagComic comic={item.comic} />
+          <BagComic item={item} />
         ))}
       </BagComicList>
 
@@ -30,7 +36,7 @@ export default function Bag() {
       >
         <Text fontSize="2xl">Total</Text>
         <Divider />
-        <Heading>{convertCurrency(0)}</Heading>
+        <Heading>{convertCurrency(getTotalValue(items))}</Heading>
       </Flex>
     </Flex>
   );
