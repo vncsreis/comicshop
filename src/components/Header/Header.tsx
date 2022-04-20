@@ -1,9 +1,9 @@
-import { SearchIcon } from '@chakra-ui/icons';
-import { Flex, IconButton, Input, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { AiOutlineShopping } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectBagAmount } from '../../slices/bagSlice';
+import SearchBar from '../SearchBar';
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -20,25 +20,8 @@ export default function Header() {
           <h1 className={styles.title}>COMICSHOP</h1>
         </Flex>
       </Link>
-      <Flex ml="auto" flex="1" justifyContent="center">
-        <Input
-          fontSize="xl"
-          border="none"
-          type="text"
-          width="70%"
-          borderRightRadius="none"
-          backgroundColor="white"
-          color="black"
-        />
-        <IconButton
-          border="none"
-          borderLeftRadius="none"
-          icon={<SearchIcon />}
-          aria-label="Search"
-          type="button"
-          backgroundColor="white"
-        />
-      </Flex>
+      <SearchBar />
+
       <Link to="/bag">
         <Flex width="20%" justifyContent="space-evenly">
           <Flex alignItems="center" cursor="pointer">
