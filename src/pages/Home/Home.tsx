@@ -20,8 +20,6 @@ export default function Home() {
     let fails = 0;
     let success = false;
 
-    const controller = new AbortController();
-
     do {
       try {
         const offset = Math.floor(Math.random() * 5000);
@@ -29,7 +27,7 @@ export default function Home() {
           import.meta.env.VITE_APIKEY
         }`;
 
-        const response = await axios.get(url, { signal: controller.signal });
+        const response = await axios.get(url, { timeout: 5000 });
 
         const { results } = response.data.data;
 
@@ -59,6 +57,7 @@ export default function Home() {
 
         success = true;
 
+        setLoading(false);
         return fetchedComicArray;
       } catch (e) {
         fails += 1;
@@ -66,8 +65,7 @@ export default function Home() {
       }
     } while (fails <= 5 && success !== true);
     setLoading(false);
-
-    return () => controller.abort();
+    return [];
   }
 
   useEffect(() => {
